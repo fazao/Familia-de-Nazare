@@ -99,7 +99,7 @@
       left: 72px;
       top: 50%;
       transform: translateY(-50%);
-      max-width: 48%;
+      max-width: 560px;
       z-index: 4;
     }
     .hero-label{
@@ -401,6 +401,8 @@
       font-size: 2.4rem;
       line-height: 1;
       display: block;
+      text-align: center;
+      margin-bottom: 8px;
       transition: transform 0.3s var(--ease-out-expo);
     }
 
@@ -1428,24 +1430,112 @@
       .whatsapp-float::after { display: none; }
     } } }
     }
-    } } }
+    } } } }
+    @media(max-width:1024px){ }
+    @media(max-width:700px) { }
 
 
-    .hero-svg-logo {
-      position: absolute;
-      right: 5%;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 300px;
-      z-index: 10;
-      pointer-events: none;
-      opacity: 0;
-      animation: svgLogoReveal 1.2s ease-out 0.8s forwards;
+    /* ════════════════════════════════════════════════════════════
+       RESPONSIVO MOBILE — não altera desktop
+    ════════════════════════════════════════════════════════════ */
+
+    /* ── Tablet (≤768px) ── */
+    @media (max-width: 768px) {
+
+      /* Header: hamburger-less — shrink nav */
+      .header { padding: 0 20px; height: 60px; }
+      .logo-name { font-size: 0.95rem; }
+      .logo-sub  { display: none; }
+      nav { gap: 0; }
+      nav a { padding: 6px 9px; font-size: 0.58rem; letter-spacing: 0.07em; }
+
+      /* Hero: centralizado, texto maior, padding adequado */
+      .hero { align-items: center; }
+      .hero-content {
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;
+        max-width: 100% !important;
+        width: 100%;
+        padding: 100px 28px 60px;
+        z-index: 4;
+        text-align: left;
+      }
+      .hero-title { font-size: clamp(2rem, 7vw, 3.2rem); }
+      .hero-desc  { font-size: 1rem; max-width: 100%; }
+      .hero-ctas  { flex-direction: column; gap: 12px; }
+      .btn-reserve, .btn-explore { width: 100%; justify-content: center; }
+      .hero-scroll { right: 20px; bottom: 24px; }
+
+      /* Segunda dobra */
+      .pousada-inner {
+        grid-template-columns: 1fr;
+        padding: 64px 24px 80px;
+        gap: 48px;
+      }
+      .pousada-photo { margin-bottom: 32px; }
+      .pousada-badge { bottom: -18px; left: 20px; padding: 14px 22px; }
+      .pousada-badge-num { font-size: 2rem; }
+      .pousada-cards { grid-template-columns: 1fr; gap: 14px; }
+      .pousada-title { font-size: clamp(1.6rem, 5vw, 2.2rem); }
+
+      /* Carrossel acomodações */
+      .acomodacoes { padding: 64px 0 72px; }
+      .acomodacoes-header { padding: 0 24px; margin-bottom: 40px; }
+      .acomodacoes-title { font-size: clamp(1.6rem, 5vw, 2.4rem); }
+      .carousel-slide { width: 260px; height: 180px; }
+
+      /* Café da manhã */
+      .cafe { padding: 64px 0 72px; }
+      .cafe-header { padding: 0 24px; margin-bottom: 40px; }
+      .cafe-title { font-size: clamp(1.6rem, 5vw, 2.4rem); }
+
+      /* Contato */
+      .contato-header { padding: 64px 24px 40px; }
+      .contato-title { font-size: clamp(1.6rem, 5vw, 2.4rem); }
+      .contato-info { grid-template-columns: 1fr; }
+      .contato-col {
+        border-right: none;
+        border-bottom: 1px solid rgba(212,168,83,0.10);
+        padding: 40px 24px;
+        /* pause float animation on mobile */
+        animation: none;
+      }
+      .contato-col:last-child { border-bottom: none; }
+
+      /* Mapa: menor, sem overlap no footer */
+      .contato-map {
+        padding: 32px 20px 48px;
+      }
+      .contato-map-frame {
+        height: 220px;
+        max-width: 100%;
+      }
+
+      /* Footer contato */
+      .contato-footer {
+        padding: 36px 24px;
+        text-align: center;
+        gap: 14px;
+      }
+      .contato-footer-copy { font-size: 0.6rem; line-height: 1.7; }
+
+      /* WhatsApp */
+      .whatsapp-float { bottom: 18px; right: 18px; width: 50px; height: 50px; }
+      .whatsapp-float svg { width: 26px; height: 26px; }
+      .whatsapp-float::after { display: none; }
     }
-    .hero-svg-logo svg { width: 100%; height: auto; display: block; overflow: visible; }
-    @keyframes svgLogoReveal { to { opacity: 1; } }
-    @media(max-width:1024px){ .hero-svg-logo { width: 220px; right: 2%; } }
-    @media(max-width:700px) { .hero-svg-logo { display: none; } }
+
+    /* ── Mobile pequeno (≤420px) ── */
+    @media (max-width: 420px) {
+      nav a { padding: 5px 6px; font-size: 0.54rem; letter-spacing: 0.05em; }
+      .hero-content { padding: 90px 20px 52px; }
+      .hero-title { font-size: clamp(1.8rem, 8vw, 2.8rem); }
+      .pousada-inner { padding: 52px 18px 72px; }
+      .contato-map-frame { height: 200px; }
+      .carousel-slide { width: 220px; height: 155px; }
+    }
 
   </style>
 </head>
@@ -1476,34 +1566,6 @@
       <div class="hero-overlay"></div>
       <div class="hero-light-leak"></div>
       <div class="stars" id="stars"></div>
-
-      <!-- LOGO SVG DIREITA HERO -->
-      <div class="hero-svg-logo">
-        <svg viewBox="0 0 300 320" xmlns="http://www.w3.org/2000/svg">
-          <g transform="translate(50,10)">
-            <!-- Cabeça esquerda - terracotta brilhante -->
-            <circle cx="65" cy="50" r="28" fill="none" stroke="#E8694A" stroke-width="6" stroke-linecap="round"/>
-            <path d="M42 62 C48 80 56 90 65 96" fill="none" stroke="#E8694A" stroke-width="6" stroke-linecap="round"/>
-            <!-- Cabeça direita - gold brilhante -->
-            <path d="M88 36 C98 16 120 14 134 26 C148 38 148 62 134 76 C124 86 108 86 98 76" fill="none" stroke="#F0C040" stroke-width="6" stroke-linecap="round"/>
-            <!-- Corpo esquerdo - terracotta -->
-            <path d="M38 72 C18 98 8 136 10 170 C12 205 28 235 56 250 C74 260 96 258 112 248" fill="none" stroke="#E8694A" stroke-width="6.5" stroke-linecap="round"/>
-            <!-- Cauda inferior - terracotta -->
-            <path d="M56 250 C44 258 32 262 36 272" fill="none" stroke="#E8694A" stroke-width="6" stroke-linecap="round"/>
-            <!-- Corpo direito - gold -->
-            <path d="M98 76 C122 90 138 122 142 156 C146 190 132 224 110 240 C96 250 80 253 66 249" fill="none" stroke="#F0C040" stroke-width="6.5" stroke-linecap="round"/>
-            <!-- Braço curto direito - gold -->
-            <path d="M142 154 C156 160 164 174 158 188" fill="none" stroke="#F0C040" stroke-width="6" stroke-linecap="round"/>
-            <!-- Linha interna - terracotta suave -->
-            <path d="M65 96 C68 112 72 130 68 146" fill="none" stroke="#E8694A" stroke-width="4.5" stroke-linecap="round" opacity="0.7"/>
-            <!-- Bebê cabeça - verde oliva brilhante -->
-            <circle cx="88" cy="152" r="20" fill="none" stroke="#A8BB4A" stroke-width="5.5" stroke-linecap="round"/>
-            <path d="M72 162 C74 172 80 180 88 184" fill="none" stroke="#A8BB4A" stroke-width="5.5" stroke-linecap="round"/>
-            <!-- Bebê corpo - verde oliva -->
-            <path d="M84 174 C76 188 78 204 88 213 C99 222 114 218 120 206 C126 193 120 178 109 172" fill="none" stroke="#A8BB4A" stroke-width="5.5" stroke-linecap="round"/>
-          </g>
-        </svg>
-      </div>
 
 
       <!-- CONTEÚDO ESQUERDA -->
