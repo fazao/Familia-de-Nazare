@@ -1,0 +1,64 @@
+1. Cores (Color Palette)
+O site faz uso extensivo de variáveis CSS para gerenciar um esquema de cores dual ("Dia" para seções claras e "Noite" para seções escuras).
+
+Tons de Areia / Claros (Backgrounds Day)
+Sand: #F5EDE0 (Fundo principal claro)
+Sand Dark: #E8DCC8
+Sand Medium: #D9CCBA
+Cream: #F0E6D6 (Usado para textos em fundos escuros)
+Cream Muted: rgba(240, 230, 214, 0.6)
+Tons Terra / Destaque (Accents)
+Terracotta: #C4572A
+Gold: #D4A853
+Gold Light: #E8D5B0
+Tons Escuros / Marrons (Textos e Backgrounds Night)
+Brown: #2C1810 (Texto principal em fundos claros)
+Brown Medium: #5C4033 (Texto secundário em fundos claros)
+Night: #0A0F1E (Fundo principal escuro)
+Night Light: #141B2D
+Night Medium: #1E2640
+2. Tipografia (Typography)
+Fonte Display (Títulos): 'Cormorant Garamond', serif
+Pesos utilizados: 300 (Light), 400 (Regular), 500 (Medium), 600 (Semi-bold).
+Uso: Títulos de seções, números grandes, citações (com itálico).
+Fonte Body (Corpo de Texto e UI): 'Inter', sans-serif
+Pesos utilizados: 300 (Light), 400 (Regular), 500 (Medium).
+Uso: Textos de parágrafos, botões, labels, navegação.
+3. Elementos Globais e Espaçamento
+Container Padrão: Largura máxima de 1200px com padding lateral de 24px (margin: 0 auto).
+Curva de Animação Padrão (Easing): cubic-bezier(0.33, 1, 0.68, 1) - uma curva suave e elástica usada para transições.
+Textura de Fundo: Uma sobreposição global de SVG com "ruído" (fractal noise) com opacity: 0.035 aplicada em body::before para dar um efeito sutil de textura/filme.
+4. Componentes UI (UI Components)
+Títulos e Labels (Typography Styles)
+Section Label: Fonte Inter, tamanho 0.72rem, peso 500, uppercase, letter-spacing 0.12em. Cores variam (--terracotta no dia, --gold na noite).
+Section Title: Fonte Cormorant Garamond, peso 300, responsivo (clamp(1.8rem, 3.5vw, 2.4rem)), letter-spacing -0.02em.
+Section Divider: Uma linha de 80px por 1px usando um gradiente que esmaece nas pontas: linear-gradient(90deg, transparent, var(--gold), transparent).
+Botões e CTAs
+Botão Outline (Navegação):
+Texto 0.72rem, peso 500, uppercase, tracking alto (0.1em).
+Cor: --gold-light, Borda: 1px solid rgba(212,168,83,0.4).
+Hover: Background sutil rgba(212,168,83,0.15) e borda muda para --gold.
+Botão Hero (Glassmorphism + Borda Animada):
+Fundo semitransparente: rgba(255,255,255,0.08) com backdrop-filter: blur(8px).
+Possui um pseudo-elemento animado que simula uma borda giratória de luz usando conic-gradient animado de 0 a 360deg.
+Hover: Sobe -2px com box-shadow: 0 8px 32px rgba(212,168,83,0.2).
+Botão Solid (Reserve):
+Background: linear-gradient(135deg, var(--gold), var(--terracotta)).
+Texto branco, uppercase.
+Cards (Suítes, Tratamentos, Excursões)
+A identidade de elementos de lista/grade é construída usando caixas levemente delimitadas.
+
+Bordas e Fundos: Fundo transparente (ex: rgba(255,255,255,0.03)) ou leve vidro, bordas finas douradas border: 1px solid rgba(212,168,83,0.1).
+Border Radius: O padrão é arredondado, geralmente 12px ou 14px.
+Imagens nos Cards: Proporções controladas (ex: aspect-ratio: 4/3 ou 3/2). Muitas vezes há um filtro leve saturate(0.85) contrast(1.05) aplicado às imagens e um leve gradiente linear escuro/claro na parte inferior da imagem para facilitar a leitura se houver texto.
+Interações: Ao passar o mouse, o card inteira sofre um leve translado (transform: translateY(-4px)) e ganha um box-shadow esfumaçado. As imagens internas frequentemente recebem um transform: scale(1.05).
+5. Animações e Comportamentos (Animations)
+O site confia bastante em revelações atreladas ao scroll da página (Intersection Observer).
+
+Classes de Revelação (Scroll Reveals):
+.reveal: Desvanece de opacity 0 e se move de baixo para cima translateY(28px).
+.reveal-left: Desvanece de opacity 0 e se move da esquerda para a direita translateX(-28px).
+.stagger-up: Container pai, onde cada elemento filho .reveal-child sobe com atrasos em cascata (0s, 0.12s, 0.24s, etc.).
+Hero e Parallax: A imagem de fundo sofre parallax no scroll, criando profundidade.
+Animação do Contador: Números crescem do 0 ao valor alvo na primeira vez que entram na tela.
+Estrelas (Transition Section): Elementos circulares absolutos que animam a opacidade (@keyframes twinkle) em tempos aleatórios para simular um céu estrelado.
