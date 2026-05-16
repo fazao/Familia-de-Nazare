@@ -1537,6 +1537,78 @@
       .carousel-slide { width: 220px; height: 155px; }
     }
 
+
+    /* ── Hamburger menu (mobile only) ──────────────────────────── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: 1px solid rgba(212,168,83,0.3);
+      border-radius: 4px;
+      cursor: pointer;
+      padding: 8px;
+      z-index: 200;
+      transition: border-color 0.3s;
+    }
+    .hamburger:hover { border-color: var(--gold); }
+    .hamburger span {
+      display: block;
+      width: 20px;
+      height: 1.5px;
+      background: var(--gold);
+      border-radius: 2px;
+      transition: transform 0.35s var(--ease-out-expo), opacity 0.3s;
+      transform-origin: center;
+    }
+    /* X quando aberto */
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+
+      #mainNav {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0; right: 0;
+        background: rgba(10,15,30,0.98);
+        backdrop-filter: blur(16px);
+        flex-direction: column;
+        align-items: stretch;
+        padding: 12px 0 20px;
+        border-bottom: 1px solid rgba(212,168,83,0.15);
+        z-index: 99;
+        gap: 0;
+      }
+
+      #mainNav.open { display: flex; }
+
+      #mainNav a {
+        padding: 14px 28px;
+        font-size: 0.75rem;
+        letter-spacing: 0.12em;
+        border-bottom: 1px solid rgba(212,168,83,0.07);
+        color: var(--cream-muted);
+      }
+
+      #mainNav a:last-child { border-bottom: none; }
+
+      #mainNav a::after { display: none; }
+
+      #mainNav a:hover,
+      #mainNav a.active {
+        color: var(--gold);
+        background: rgba(212,168,83,0.06);
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1550,12 +1622,17 @@
         <span class="logo-sub">Pousada · Cachoeira Paulista</span>
       </div>
     </a>
-    <nav>
-      <a href="#home" class="active">Home</a>
-      <a href="#pousada">A Pousada</a>
-      <a href="#acomodacoes">Acomodações</a>
-      <a href="#contato">Contato</a>
-    </nav>
+    <!-- Botão hamburger (só mobile) -->
+      <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="mainNav">
+        <a href="#home" class="active">Home</a>
+        <a href="#pousada">A Pousada</a>
+        <a href="#acomodacoes">Acomodações</a>
+        <a href="#contato">Contato</a>
+      </nav>
   </header>
 
   <main>
@@ -1875,6 +1952,35 @@
   </main>
 
   <script>
+
+  // ── Hamburger menu ─────────────────────────────────────────────
+  var hamburger = document.getElementById('hamburgerBtn');
+  var mainNav   = document.getElementById('mainNav');
+
+  hamburger.addEventListener('click', function(){
+    var isOpen = mainNav.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+  });
+
+  // Fecha ao clicar em um link
+  mainNav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      mainNav.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Fecha ao clicar fora
+  document.addEventListener('click', function(e){
+    if(!hamburger.contains(e.target) && !mainNav.contains(e.target)){
+      mainNav.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+  });
+
   // ── Smooth scroll for nav links ───────────────────────────────
   document.querySelectorAll('nav a[href^="#"]').forEach(function(link){
     link.addEventListener('click', function(e){
