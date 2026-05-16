@@ -93,21 +93,13 @@
     }
 
     /* ── Wrapper interno do hero (dois blocos lado a lado) ── */
-    .hero-inner{
-      position:relative;z-index:2;
-      width:100%;
-      display:flex;
-      align-items:center;
-      padding: 0 72px;
-    }
-
     /* ════ BLOCO ESQUERDO – textos ═══════════════════════════════ */
     .hero-content{
       position: absolute;
       left: 72px;
       top: 50%;
       transform: translateY(-50%);
-      max-width: 560px;
+      max-width: 48%;
       z-index: 4;
     }
     .hero-label{
@@ -1434,7 +1426,26 @@
       .whatsapp-float { bottom: 20px; right: 20px; width: 52px; height: 52px; }
       .whatsapp-float svg { width: 28px; height: 28px; }
       .whatsapp-float::after { display: none; }
+    } } }
     }
+    } } }
+
+
+    .hero-svg-logo {
+      position: absolute;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 300px;
+      z-index: 10;
+      pointer-events: none;
+      opacity: 0;
+      animation: svgLogoReveal 1.2s ease-out 0.8s forwards;
+    }
+    .hero-svg-logo svg { width: 100%; height: auto; display: block; overflow: visible; }
+    @keyframes svgLogoReveal { to { opacity: 1; } }
+    @media(max-width:1024px){ .hero-svg-logo { width: 220px; right: 2%; } }
+    @media(max-width:700px) { .hero-svg-logo { display: none; } }
 
   </style>
 </head>
@@ -1461,16 +1472,42 @@
     <section class="hero" id="home">
 
       <div class="hero-bg" id="heroBg"></div>
+
       <div class="hero-overlay"></div>
       <div class="hero-light-leak"></div>
       <div class="stars" id="stars"></div>
 
+      <!-- LOGO SVG DIREITA HERO -->
+      <div class="hero-svg-logo">
+        <svg viewBox="0 0 300 320" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(50,10)">
+            <!-- Cabeça esquerda - terracotta brilhante -->
+            <circle cx="65" cy="50" r="28" fill="none" stroke="#E8694A" stroke-width="6" stroke-linecap="round"/>
+            <path d="M42 62 C48 80 56 90 65 96" fill="none" stroke="#E8694A" stroke-width="6" stroke-linecap="round"/>
+            <!-- Cabeça direita - gold brilhante -->
+            <path d="M88 36 C98 16 120 14 134 26 C148 38 148 62 134 76 C124 86 108 86 98 76" fill="none" stroke="#F0C040" stroke-width="6" stroke-linecap="round"/>
+            <!-- Corpo esquerdo - terracotta -->
+            <path d="M38 72 C18 98 8 136 10 170 C12 205 28 235 56 250 C74 260 96 258 112 248" fill="none" stroke="#E8694A" stroke-width="6.5" stroke-linecap="round"/>
+            <!-- Cauda inferior - terracotta -->
+            <path d="M56 250 C44 258 32 262 36 272" fill="none" stroke="#E8694A" stroke-width="6" stroke-linecap="round"/>
+            <!-- Corpo direito - gold -->
+            <path d="M98 76 C122 90 138 122 142 156 C146 190 132 224 110 240 C96 250 80 253 66 249" fill="none" stroke="#F0C040" stroke-width="6.5" stroke-linecap="round"/>
+            <!-- Braço curto direito - gold -->
+            <path d="M142 154 C156 160 164 174 158 188" fill="none" stroke="#F0C040" stroke-width="6" stroke-linecap="round"/>
+            <!-- Linha interna - terracotta suave -->
+            <path d="M65 96 C68 112 72 130 68 146" fill="none" stroke="#E8694A" stroke-width="4.5" stroke-linecap="round" opacity="0.7"/>
+            <!-- Bebê cabeça - verde oliva brilhante -->
+            <circle cx="88" cy="152" r="20" fill="none" stroke="#A8BB4A" stroke-width="5.5" stroke-linecap="round"/>
+            <path d="M72 162 C74 172 80 180 88 184" fill="none" stroke="#A8BB4A" stroke-width="5.5" stroke-linecap="round"/>
+            <!-- Bebê corpo - verde oliva -->
+            <path d="M84 174 C76 188 78 204 88 213 C99 222 114 218 120 206 C126 193 120 178 109 172" fill="none" stroke="#A8BB4A" stroke-width="5.5" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
 
-      <!-- DOIS BLOCOS LADO A LADO -->
-      <div class="hero-inner">
 
-        <!-- ESQUERDA: textos -->
-        <div class="hero-content">
+      <!-- CONTEÚDO ESQUERDA -->
+      <div class="hero-content">
           <div class="hero-label">Bem-Vindo à Pousada Família de Nazaré</div>
           <h1 class="hero-title">
             Venha sentir o<br>
@@ -1483,14 +1520,13 @@
             da Comunidade Canção Nova.
           </p>
           <div class="hero-ctas">
-            <a href="#acomodacoes" class="btn-reserve">
+            <a href="https://wa.me/5512981685532?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es" target="_blank" rel="noopener noreferrer" class="btn-reserve">
               Reserve sua estadia
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
             <a href="#pousada" class="btn-explore">Conheça a pousada</a>
           </div>
         </div>
-</div><!-- /hero-inner -->
 
       <div class="hero-scroll">
         <div class="hero-scroll-line"></div>
@@ -1749,7 +1785,7 @@
       <div class="contato-map reveal">
         <div class="contato-map-frame">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3674.1!2d-45.0147!3d-22.6508!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cbfd6e3b6b6b6b%3A0x1234567890abcdef!2sR.%20Sebasti%C3%A3o%20Fortes%2C%20122-111%2C%20Cachoeira%20Paulista%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1700000000000"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.5!2d-45.0134!3d-22.6501!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cbfe29b3af2b51%3A0x7b4c2b3e4f5a6d7e!2sR.%20Sebasti%C3%A3o%20Fortes%2C%20122%20-%20Vila%20Cacarro%2C%20Cachoeira%20Paulista%20-%20SP%2C%2012630-000!5e0!3m2!1spt-BR!2sbr!4v1716000000000!5m2!1spt-BR!2sbr"
           allowfullscreen=""
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
@@ -1768,7 +1804,7 @@
           </div>
         </div>
         <div class="contato-footer-copy reveal" style="transition-delay:0.1s">
-          © 2025 Pousada Família de Nazaré · Todos os direitos reservados
+          © 2026 Pousada Família de Nazaré · Todos os direitos reservados - Desenvolvido por <a href="https://agenciadominus.com.br/" target="_blank" rel="noopener noreferrer" style="color:var(--gold);opacity:0.6;text-decoration:none;transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">Agência Dominus</a>
         </div>
       </div>
 
@@ -1839,8 +1875,6 @@
   revealEls.forEach(function(el){ revealObserver.observe(el); });
 
   </script>
-
-
   <!-- WHATSAPP FLUTUANTE -->
   <a
     class="whatsapp-float"
