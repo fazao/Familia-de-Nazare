@@ -17,6 +17,7 @@
       --ease-out-expo:cubic-bezier(0.33,1,0.68,1);
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    section[id]{ scroll-margin-top: 76px; }
     html{scroll-behavior:smooth;}
     body{font-family:'Inter',sans-serif;background:var(--night);color:var(--cream);overflow-x:hidden;}
     body::before{
@@ -994,6 +995,447 @@
       .cafe-header { padding: 0 24px; }
     }
 
+
+    /* ════ SEÇÃO 5 — CONTATO ════════════════════════════════════ */
+    .contato {
+      position: relative;
+      background: var(--night);
+      overflow: hidden;
+    }
+
+    .contato::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .contato-bg-glow {
+      position: absolute;
+      bottom: -100px; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 500px;
+      background: radial-gradient(ellipse, rgba(212,168,83,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ── Info Grid (3 colunas) ── */
+    .contato-info {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      border-bottom: 1px solid rgba(212,168,83,0.12);
+    }
+
+    .contato-col {
+      padding: 72px 48px;
+      text-align: center;
+      border-right: 1px solid rgba(212,168,83,0.10);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.6s var(--ease-out-expo), transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo);
+      animation: cardFloat 5s ease-in-out infinite;
+    }
+
+    .contato-col:nth-child(2) { animation-delay: 1.5s; }
+    .contato-col:nth-child(3) { animation-delay: 3s; }
+
+    .contato-col:last-child { border-right: none; }
+
+    /* Shimmer sweep */
+    .contato-col::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%; height: 100%;
+      background: linear-gradient(
+        105deg,
+        transparent 0%,
+        rgba(212,168,83,0.05) 40%,
+        rgba(255,248,231,0.09) 50%,
+        rgba(212,168,83,0.05) 60%,
+        transparent 100%
+      );
+      transition: left 0.7s var(--ease-out-expo);
+      pointer-events: none;
+    }
+
+    /* Animated gold border */
+    .contato-col::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      padding: 1px;
+      background: linear-gradient(180deg,
+        rgba(212,168,83,0) 0%,
+        rgba(212,168,83,0.5) 50%,
+        rgba(212,168,83,0) 100%
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    .contato-col:hover {
+      background: rgba(212,168,83,0.05);
+      animation-play-state: paused;
+    }
+
+    .contato-col:hover::before { left: 140%; }
+    .contato-col:hover::after  { opacity: 1; }
+
+    .contato-col-icon {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: rgba(212,168,83,0.08);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+      border: 1px solid rgba(212,168,83,0.18);
+      position: relative;
+      transition: background 0.4s ease, transform 0.4s var(--ease-out-expo), box-shadow 0.4s ease;
+    }
+
+    .contato-col:hover .contato-col-icon {
+      background: rgba(212,168,83,0.22);
+      transform: scale(1.15);
+      box-shadow: 0 0 20px rgba(212,168,83,0.2);
+    }
+
+    /* Pulse ring on icon hover */
+    .contato-col:hover .contato-col-icon::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1px solid rgba(212,168,83,0.4);
+      animation: badgePulse 0.8s ease-out forwards;
+    }
+
+    .contato-col-icon svg {
+      width: 20px; height: 20px;
+      stroke: var(--gold);
+    }
+
+    .contato-col-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: 1.3rem;
+      letter-spacing: 0.04em;
+      color: var(--gold);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      font-style: normal;
+    }
+
+    .contato-col-body {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--cream-muted);
+    }
+
+    .contato-col-body strong {
+      color: var(--gold-light);
+      font-weight: 500;
+    }
+
+    .contato-col-body a {
+      color: var(--cream-muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .contato-col-body a:hover { color: var(--gold-light); }
+
+    /* Botão agenda */
+    .btn-agenda {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+      padding: 11px 26px;
+      background: transparent;
+      color: var(--gold);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      text-decoration: none;
+      border: 1px solid rgba(212,168,83,0.4);
+      border-radius: 3px;
+      transition: background 0.3s, border-color 0.3s, color 0.3s, transform 0.3s var(--ease-out-expo);
+    }
+
+    .btn-agenda:hover {
+      background: rgba(212,168,83,0.10);
+      border-color: var(--gold);
+      color: var(--gold-light);
+      transform: translateY(-2px);
+    }
+
+    /* ── Mapa ── */
+    .contato-map {
+      position: relative;
+      padding: 0 72px 64px;
+      border-top: 1px solid rgba(212,168,83,0.10);
+      padding-top: 56px;
+    }
+
+    .contato-map-frame {
+      max-width: 860px;
+      margin: 0 auto;
+      height: 300px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid rgba(212,168,83,0.15);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+    }
+
+    .contato-map-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      filter: grayscale(0.25) contrast(1.02);
+      display: block;
+    }
+
+    /* ── Footer / Logo ── */
+    .contato-footer {
+      position: relative;
+      z-index: 2;
+      padding: 52px 72px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      border-top: 1px solid rgba(212,168,83,0.10);
+    }
+
+    .contato-footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .contato-footer-bar {
+      width: 3px; height: 36px;
+      background: linear-gradient(180deg, var(--gold), var(--terracotta));
+      border-radius: 2px;
+    }
+
+    .contato-footer-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1.4rem;
+      letter-spacing: 0.06em;
+      color: var(--cream);
+      line-height: 1.2;
+    }
+
+    .contato-footer-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.58rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--gold);
+      opacity: 0.7;
+    }
+
+    .contato-footer-copy {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 300;
+      color: rgba(240,230,214,0.25);
+      letter-spacing: 0.08em;
+      text-align: center;
+    }
+
+    /* Responsive */
+    @media(max-width:900px) {
+      .contato-info { grid-template-columns: 1fr; }
+      .contato-col { border-right: none; border-bottom: 1px solid rgba(212,168,83,0.10); padding: 52px 32px; }
+      .contato-col:last-child { border-bottom: none; }
+      .contato-map { height: 300px; }
+      .contato-footer { padding: 40px 32px; }
+    }
+
+    @media(max-width:560px) {
+      .contato-col { padding: 44px 24px; }
+      .contato-footer { padding: 36px 24px; }
+    }
+
+
+    /* ── Contato Header ── */
+    .contato-header {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 100px 72px 56px;
+    }
+
+    .contato-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .contato-label::before,
+    .contato-label::after {
+      content: '';
+      display: block;
+      width: 40px; height: 1px;
+      background: linear-gradient(90deg,
+        transparent 0%, var(--gold) 40%,
+        #fff8e7 50%, var(--gold) 60%, transparent 100%
+      );
+      background-size: 300% 100%;
+      background-position: -200% 0;
+      animation: lineGlow 9s linear infinite 1s;
+    }
+
+    .contato-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--cream);
+      margin-bottom: 16px;
+    }
+
+    .contato-title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .contato-divider {
+      width: 80px; height: 1px;
+      background: linear-gradient(90deg,
+        transparent 0%, var(--gold) 40%,
+        #fff8e7 50%, var(--gold) 60%, transparent 100%
+      );
+      background-size: 300% 100%;
+      background-position: -200% 0;
+      margin: 0 auto 20px;
+      animation: lineGlow 9s linear infinite 2.5s;
+    }
+
+    .contato-subtitle {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--cream-muted);
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+
+    /* ════ WHATSAPP FLUTUANTE ════════════════════════════════════ */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 9998;
+      width: 58px;
+      height: 58px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 24px rgba(37,211,102,0.45), 0 2px 8px rgba(0,0,0,0.25);
+      text-decoration: none;
+      transition: transform 0.35s var(--ease-out-expo), box-shadow 0.35s var(--ease-out-expo);
+      animation: waFloat 3.5s ease-in-out infinite;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.12) translateY(-3px);
+      box-shadow: 0 12px 36px rgba(37,211,102,0.55), 0 4px 12px rgba(0,0,0,0.3);
+      animation-play-state: paused;
+    }
+
+    /* Anel de pulso verde */
+    .whatsapp-float::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: #25D366;
+      animation: waPulse 2.5s ease-out infinite;
+      z-index: -1;
+    }
+
+    .whatsapp-float svg {
+      width: 32px;
+      height: 32px;
+      fill: #fff;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Tooltip */
+    .whatsapp-float::after {
+      content: 'Fale conosco';
+      position: absolute;
+      right: 68px;
+      top: 50%;
+      transform: translateY(-50%) translateX(8px);
+      background: rgba(10,15,30,0.92);
+      color: var(--cream);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      padding: 7px 14px;
+      border-radius: 4px;
+      border: 1px solid rgba(212,168,83,0.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s var(--ease-out-expo);
+    }
+
+    .whatsapp-float:hover::after {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0);
+    }
+
+    @keyframes waFloat {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-6px); }
+    }
+
+    @keyframes waPulse {
+      0%   { transform: scale(1);   opacity: 0.6; }
+      70%  { transform: scale(1.5); opacity: 0;   }
+      100% { transform: scale(1.5); opacity: 0;   }
+    }
+
+    @media(max-width:560px) {
+      .whatsapp-float { bottom: 20px; right: 20px; width: 52px; height: 52px; }
+      .whatsapp-float svg { width: 28px; height: 28px; }
+      .whatsapp-float::after { display: none; }
+    }
+
   </style>
 </head>
 <body>
@@ -1012,7 +1454,6 @@
       <a href="#pousada">A Pousada</a>
       <a href="#acomodacoes">Acomodações</a>
       <a href="#contato">Contato</a>
-      <a href="#blog">Blog</a>
     </nav>
   </header>
 
@@ -1052,7 +1493,6 @@
 </div><!-- /hero-inner -->
 
       <div class="hero-scroll">
-        <span>Scroll</span>
         <div class="hero-scroll-line"></div>
       </div>
 
@@ -1231,9 +1671,125 @@
 
     </section>
 
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SEÇÃO 5 — CONTATO
+    ════════════════════════════════════════════════════════════ -->
+    <section class="contato" id="contato">
+      <div class="contato-bg-glow"></div>
+
+      <!-- Header -->
+      <div class="contato-header">
+        <div class="contato-label reveal">Fale Conosco</div>
+        <h2 class="contato-title reveal" style="transition-delay:0.1s">
+          <em>Contato</em>
+        </h2>
+        <div class="contato-divider reveal" style="transition-delay:0.15s"></div>
+        <p class="contato-subtitle reveal" style="transition-delay:0.2s">
+          Estamos à disposição para receber você e sua família.
+        </p>
+      </div>
+
+      <!-- 3 colunas de info -->
+      <div class="contato-info">
+
+        <!-- AGENDA CN -->
+        <div class="contato-col reveal">
+          <div class="contato-col-icon">
+            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/>
+            </svg>
+          </div>
+          <div class="contato-col-title">Agenda CN</div>
+          <div class="contato-col-body">
+            Aqui você fica bem informado sobre os<br>eventos da Canção Nova.
+            <br><br>
+            <a href="https://eventos.cancaonova.com/" target="_blank" class="btn-agenda">
+              Acessar Agenda
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- HORÁRIOS -->
+        <div class="contato-col reveal" style="transition-delay:0.12s">
+          <div class="contato-col-icon">
+            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <div class="contato-col-title">Horários</div>
+          <div class="contato-col-body">
+            <strong>Check in</strong> – a partir das 14h<br>
+            <strong>Check out</strong> – até as 12h<br>
+            <strong>Café da Manhã</strong> – das 7h às 9h
+          </div>
+        </div>
+
+        <!-- LOCALIZAÇÃO -->
+        <div class="contato-col reveal" style="transition-delay:0.24s">
+          <div class="contato-col-icon">
+            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
+            </svg>
+          </div>
+          <div class="contato-col-title">Localização</div>
+          <div class="contato-col-body">
+            Rua Sebastião Fortes, 122 e 111,<br>
+            Vila Cacarro, Cachoeira Paulista – SP<br><br>
+            <a href="tel:+551231033218"><strong>(12) 3103-3218</strong></a><br>
+            <a href="tel:+5512981685532"><strong>(12) 98168-5532</strong></a>
+          </div>
+        </div>
+
+      </div><!-- /contato-info -->
+
+      <!-- Mapa Google -->
+      <div class="contato-map reveal">
+        <div class="contato-map-frame">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3674.1!2d-45.0147!3d-22.6508!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cbfd6e3b6b6b6b%3A0x1234567890abcdef!2sR.%20Sebasti%C3%A3o%20Fortes%2C%20122-111%2C%20Cachoeira%20Paulista%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1700000000000"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Localização Pousada Família de Nazaré">
+        </iframe>
+        </div>
+      </div>
+
+      <!-- Footer com logo -->
+      <div class="contato-footer">
+        <div class="contato-footer-logo reveal">
+          <div class="contato-footer-bar"></div>
+          <div>
+            <div class="contato-footer-name">Família de Nazaré</div>
+            <div class="contato-footer-sub">Pousada · Cachoeira Paulista</div>
+          </div>
+        </div>
+        <div class="contato-footer-copy reveal" style="transition-delay:0.1s">
+          © 2025 Pousada Família de Nazaré · Todos os direitos reservados
+        </div>
+      </div>
+
+    </section>
+
   </main>
 
   <script>
+  // ── Smooth scroll for nav links ───────────────────────────────
+  document.querySelectorAll('nav a[href^="#"]').forEach(function(link){
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      var target = document.querySelector(this.getAttribute('href'));
+      if(target){
+        var offset = 76; // header height
+        var top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    });
+  });
+
   // ── Stars ──────────────────────────────────────────────────────
   (function(){
     var c=document.getElementById('stars');
@@ -1283,6 +1839,20 @@
   revealEls.forEach(function(el){ revealObserver.observe(el); });
 
   </script>
+
+
+  <!-- WHATSAPP FLUTUANTE -->
+  <a
+    class="whatsapp-float"
+    href="https://wa.me/5512981685532?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es..."
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Fale conosco pelo WhatsApp"
+  >
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
 
 </body>
 </html>
