@@ -1609,79 +1609,6 @@
       }
     }
 
-
-    /* ── Mobile touch fixes (não afeta desktop) ─────────────────── */
-    @media (max-width: 768px) {
-
-      /* 1. Botões: remove hover persistente no touch
-            No mobile, :hover fica "preso" após o toque.
-            Usamos :active para o efeito e garantimos reset */
-      .btn-reserve:hover,
-      .btn-explore:hover {
-        transform: none;
-        box-shadow: none;
-      }
-      .btn-reserve:active {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 36px rgba(196,87,42,0.35);
-      }
-      .btn-explore:active {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 32px rgba(212,168,83,0.2);
-      }
-      .btn-reserve:hover::after { opacity: 0; }
-      .btn-explore:hover::before { opacity: 0; animation: none; }
-      .btn-explore:hover { border-color: rgba(212,168,83,0.3); }
-
-      /* 2. Cards pousada: desativa hover persistente */
-      .pousada-card:hover {
-        transform: translateY(0);
-        box-shadow: none;
-        background: rgba(255,255,255,0.03);
-        border-color: rgba(212,168,83,0.12);
-      }
-      .pousada-card:hover::before { left: -100%; }
-      .pousada-card:hover::after  { opacity: 0; }
-      .pousada-card:hover .pousada-card-icon { transform: none; background: rgba(212,168,83,0.1); box-shadow: none; }
-      .pousada-card:active {
-        transform: translateY(-2px);
-        background: rgba(212,168,83,0.05);
-      }
-
-      /* 3. Badge booking: desativa hover persistente */
-      .pousada-badge:hover {
-        transform: none;
-        box-shadow: 0 12px 40px rgba(196,87,42,0.35);
-      }
-      .pousada-badge:hover::before { left: -75%; }
-      .pousada-badge:hover::after  { opacity: 0; animation: none; }
-      .pousada-badge:hover .pousada-badge-num { animation: none; }
-      .pousada-badge:hover .pousada-badge-label { letter-spacing: 0.14em; }
-      .pousada-badge:active { transform: translateY(-3px) scale(1.02); }
-
-      /* 4. Cards contato: desativa hover persistente */
-      .contato-col:hover {
-        background: rgba(255,255,255,0);
-        animation-play-state: running;
-      }
-      .contato-col:hover::before { left: -100%; }
-      .contato-col:hover::after  { opacity: 0; }
-      .contato-col:hover .contato-col-icon { transform: none; background: rgba(212,168,83,0.08); box-shadow: none; }
-
-      /* 5. Foto pousada: desativa hover zoom persistente */
-      .pousada-photo-frame:hover img { transform: none; }
-
-      /* 6. Carrosséis: remove pause-on-hover em touch */
-      .carousel-track:hover,
-      .cafe-carousel-track:hover {
-        animation-play-state: running !important;
-      }
-
-      /* 7. Nav links: remove underline hover persistente */
-      nav a:hover::after { transform: scaleX(0); }
-      nav a.active::after { transform: scaleX(1); }
-    }
-
   </style>
 </head>
 <body>
@@ -2025,61 +1952,6 @@
   </main>
 
   <script>
-
-
-  // ── Mobile touch fixes ─────────────────────────────────────────
-  if ('ontouchstart' in window) {
-    // 1. Fix carousel hover-pause: resume on touchend
-    document.querySelectorAll('.carousel-track, .cafe-carousel-track').forEach(function(track){
-      track.addEventListener('touchstart', function(){ 
-        this.style.animationPlayState = 'paused';
-      }, {passive: true});
-      track.addEventListener('touchend', function(){
-        var self = this;
-        setTimeout(function(){ self.style.animationPlayState = 'running'; }, 800);
-      }, {passive: true});
-    });
-
-    // 2. Fix button stuck hover: force blur after touch
-    document.querySelectorAll('.btn-reserve, .btn-explore, .pousada-card, .contato-col, .pousada-badge').forEach(function(el){
-      el.addEventListener('touchend', function(){
-        var self = this;
-        setTimeout(function(){ self.blur(); }, 300);
-      }, {passive: true});
-    });
-
-    // 3. Prevent ghost hover on touch devices globally
-    document.addEventListener('touchstart', function(){}, {passive: true});
-  }
-
-  // ── Hamburger menu ─────────────────────────────────────────────
-  var hamburger = document.getElementById('hamburgerBtn');
-  var mainNav   = document.getElementById('mainNav');
-
-  hamburger.addEventListener('click', function(){
-    var isOpen = mainNav.classList.toggle('open');
-    hamburger.classList.toggle('open', isOpen);
-    hamburger.setAttribute('aria-expanded', isOpen);
-  });
-
-  // Fecha ao clicar em um link
-  mainNav.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){
-      mainNav.classList.remove('open');
-      hamburger.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-    });
-  });
-
-  // Fecha ao clicar fora
-  document.addEventListener('click', function(e){
-    if(!hamburger.contains(e.target) && !mainNav.contains(e.target)){
-      mainNav.classList.remove('open');
-      hamburger.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-    }
-  });
-
   // ── Smooth scroll for nav links ───────────────────────────────
   document.querySelectorAll('nav a[href^="#"]').forEach(function(link){
     link.addEventListener('click', function(e){
@@ -2140,6 +2012,18 @@
     });
   }, { threshold: 0.15 });
   revealEls.forEach(function(el){ revealObserver.observe(el); });
+
+  // ── Mobile touch fixes ────────────────────────────────────────
+  if ('ontouchstart' in window) {
+    document.querySelectorAll('.carousel-track, .cafe-carousel-track').forEach(function(track){
+      track.addEventListener('touchstart', function(){ this.style.animationPlayState = 'paused'; }, {passive:true});
+      track.addEventListener('touchend', function(){ var s=this; setTimeout(function(){ s.style.animationPlayState='running'; }, 600); }, {passive:true});
+      track.addEventListener('touchcancel', function(){ this.style.animationPlayState = 'running'; }, {passive:true});
+    });
+    document.querySelectorAll('.btn-reserve,.btn-explore,.pousada-card,.contato-col,.pousada-badge').forEach(function(el){
+      el.addEventListener('touchend', function(){ var s=this; setTimeout(function(){ s.blur(); }, 150); }, {passive:true});
+    });
+  }
 
   </script>
   <!-- WHATSAPP FLUTUANTE -->
