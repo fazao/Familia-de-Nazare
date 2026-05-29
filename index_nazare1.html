@@ -752,7 +752,7 @@
       font-size: 0.9rem;
       font-weight: 300;
       line-height: 1.7;
-      color: var(--cream-muted);
+      color: var(--gold-light);
       max-width: 500px;
       margin: 0 auto;
     }
@@ -1634,8 +1634,8 @@
 
       /* Cards Nossa Missão / Nossa Visão (2ª dobra) */
       .pousada-card-text {
-        font-size: 0.88rem;
-        line-height: 1.7;
+        font-size: 1rem;
+        line-height: 1.75;
       }
 
       /* Subtítulo carrossel acomodações */
@@ -1660,6 +1660,19 @@
       .contato-col-body {
         font-size: 0.95rem;
         line-height: 1.85;
+      }
+    }
+
+
+    /* ── Acomodacoes subtitle mobile fix ─────────────────────────── */
+    @media (max-width: 768px) {
+      .acomodacoes-subtitle {
+        max-width: 100%;
+        padding: 0 8px;
+        text-align: center;
+        word-break: normal;
+        overflow-wrap: break-word;
+        hyphens: auto;
       }
     }
 
