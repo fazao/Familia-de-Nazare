@@ -1683,6 +1683,14 @@
       }
     }
 
+
+    /* ── GTM tracking: garante que clique registre no link, não no filho ── */
+    .btn-reserve *,
+    .btn-explore *,
+    .whatsapp-float * {
+      pointer-events: none;
+    }
+
   </style>
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WJMX899"
@@ -1741,11 +1749,11 @@
             da Comunidade Canção Nova.
           </p>
           <div class="hero-ctas">
-            <a href="https://wa.me/5512981685532?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es" target="_blank" rel="noopener noreferrer" class="btn-reserve">
+            <a href="https://wa.me/5512981685532?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es" target="_blank" rel="noopener noreferrer" class="btn-reserve" id="btn-reserve-wpp" data-gtm="botao-reserve-whatsapp">
               Reserve sua estadia
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
-            <a href="#pousada" class="btn-explore">Conheça a pousada</a>
+            <a href="#pousada" class="btn-explore" id="btn-conheca-pousada" data-gtm="botao-conheca-pousada">Conheça a pousada</a>
           </div>
         </div>
 
@@ -2034,6 +2042,55 @@
   </main>
 
   <script>
+
+  // ── GTM: eventos customizados no dataLayer para tracking preciso ──
+  window.dataLayer = window.dataLayer || [];
+
+  function trackGTMEvent(eventName, buttonId, extra) {
+    var payload = {
+      event: eventName,
+      button_id: buttonId,
+      page_path: window.location.pathname
+    };
+    if (extra) {
+      for (var k in extra) { payload[k] = extra[k]; }
+    }
+    window.dataLayer.push(payload);
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    var reserveBtn = document.getElementById('btn-reserve-wpp');
+    var conhecaBtn = document.getElementById('btn-conheca-pousada');
+    var whatsappFloat = document.getElementById('btn-whatsapp-flutuante');
+
+    if (reserveBtn) {
+      reserveBtn.addEventListener('click', function(){
+        trackGTMEvent('reserva_whatsapp', 'btn-reserve-wpp', {
+          button_location: 'hero',
+          button_text: 'Reserve sua estadia'
+        });
+      });
+    }
+
+    if (conhecaBtn) {
+      conhecaBtn.addEventListener('click', function(){
+        trackGTMEvent('clique_conheca_pousada', 'btn-conheca-pousada', {
+          button_location: 'hero',
+          button_text: 'Conheça a pousada'
+        });
+      });
+    }
+
+    if (whatsappFloat) {
+      whatsappFloat.addEventListener('click', function(){
+        trackGTMEvent('whatsapp_flutuante', 'btn-whatsapp-flutuante', {
+          button_location: 'floating',
+          button_text: 'WhatsApp Flutuante'
+        });
+      });
+    }
+  });
+
   // ── Smooth scroll for nav links ───────────────────────────────
   document.querySelectorAll('nav a[href^="#"]').forEach(function(link){
     link.addEventListener('click', function(e){
@@ -2141,6 +2198,8 @@
   <!-- WHATSAPP FLUTUANTE -->
   <a
     class="whatsapp-float"
+    id="btn-whatsapp-flutuante"
+    data-gtm="botao-whatsapp-flutuante"
     href="https://wa.me/5512981685532?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es..."
     target="_blank"
     rel="noopener noreferrer"
