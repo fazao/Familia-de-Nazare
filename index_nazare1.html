@@ -1799,7 +1799,7 @@
 
       <!-- CONTEÚDO ESQUERDA -->
       <div class="hero-content">
-          <div class="hero-label">Bem-Vindo à Hotel e Pousada Família de Nazaré</div>
+          <div class="hero-label">Bem-Vindo ao Hotel e Pousada Família de Nazaré</div>
           <h1 class="hero-title">
             Venha sentir o<br>
             <em>acolhimento da</em><br>
@@ -2227,7 +2227,7 @@
   })();
 
   // ── Carrosséis manuais + Lightbox ──────────────────────────────
-  (function(){
+  document.addEventListener('DOMContentLoaded', function(){
     var carousels = {
       acom: { track: document.getElementById('track-acom'), index: 0, images: [] },
       cafe: { track: document.getElementById('track-cafe'), index: 0, images: [] }
@@ -2335,7 +2335,7 @@
     Object.keys(carousels).forEach(function(key){
       if(carousels[key].track) update(carousels[key]);
     });
-  })();
+  });
 
   </script>
   <!-- WHATSAPP FLUTUANTE -->
